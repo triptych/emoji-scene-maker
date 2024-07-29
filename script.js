@@ -78,6 +78,7 @@ function makeDraggable(element) {
         pos4 = e.clientY;
         element.style.top = (element.offsetTop - pos2) + "px";
         element.style.left = (element.offsetLeft - pos1) + "px";
+        keepInBounds(element, document.getElementById('scene'));
         updateSceneItem(element);
     }
 
@@ -85,6 +86,22 @@ function makeDraggable(element) {
         document.onmouseup = null;
         document.onmousemove = null;
     }
+}
+
+function keepInBounds(element, scene) {
+    const sceneRect = scene.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+
+    let newLeft = parseInt(element.style.left);
+    let newTop = parseInt(element.style.top);
+
+    if (elementRect.left < sceneRect.left) newLeft = 0;
+    if (elementRect.top < sceneRect.top) newTop = 0;
+    if (elementRect.right > sceneRect.right) newLeft = sceneRect.width - elementRect.width;
+    if (elementRect.bottom > sceneRect.bottom) newTop = sceneRect.height - elementRect.height;
+
+    element.style.left = newLeft + 'px';
+    element.style.top = newTop + 'px';
 }
 
 function updateSceneItem(element) {
@@ -277,8 +294,8 @@ function createBackgroundCanvas() {
     ctx.save();
     ctx.transform(1, 0, Math.tan(35 * Math.PI / 180), 1, 0, 0);
 
-    const offsetX = -canvas.width * 0.2;  // Adjust this value to fill the lower left corner
-    const offsetY = -canvas.height * 0.2; // Adjust this value to fill the lower left corner
+    const offsetX = -canvas.width * 0.2;
+    const offsetY = -canvas.height * 0.2;
 
     for (let x = offsetX; x < canvas.width + gridSize; x += gridSize) {
         for (let y = offsetY; y < canvas.height + gridSize; y += gridSize) {
@@ -301,8 +318,8 @@ function updateCanvasDimensions() {
 }
 
 function toggleCredits() {
-    const cardInner = document.querySelector('.card-inner');
-    cardInner.style.transform = cardInner.style.transform === 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)';
+    const app = document.getElementById('app');
+    app.classList.toggle('flipped');
 }
 
 window.onload = function() {
