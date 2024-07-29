@@ -1,0 +1,188 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+}
+
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#app {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    max-width: 800px;
+    width: 100%;
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    background-color: #f8f8f8;
+    transform: rotateY(180deg);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.credits-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #ff4081;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+#scene {
+    width: 100%;
+    height: 400px;
+    border: 3px solid #ff4081;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+button:hover {
+    transform: scale(1.05) skew(-5deg);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+input[type="text"], input[type="color"], select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+
+.emoji {
+    position: absolute;
+    cursor: move;
+    user-select: none;
+    transition: transform 0.2s ease;
+}
+
+.emoji:hover {
+    transform: scale(1.1);
+}
+
+.speech-bubble {
+    position: absolute;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 150px;
+    font-size: 14px;
+    cursor: move;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.selected {
+    outline: 3px solid #4caf50;
+}
+
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#gradientPreview {
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+#shareUrl {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#savedScenes {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    #app {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+}

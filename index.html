@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Scene Maker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    <div id="app">
+        <div class="credits-button" onclick="toggleCredits()">Credits</div>
+        <div class="card-inner">
+            <div class="card-front">
+                <h1>Emoji Scene Maker</h1>
+                <div class="dimension-control">
+                    <label for="canvasDimensions">Canvas Size:</label>
+                    <select id="canvasDimensions" onchange="updateCanvasDimensions()">
+                        <option value="300x200">300x200 (Default)</option>
+                        <option value="400x300">400x300</option>
+                        <option value="500x400">500x400</option>
+                        <option value="600x400">600x400</option>
+                    </select>
+                </div>
+                <div id="scene"></div>
+                <div class="controls">
+                    <button id="emojiButton">Choose Emoji</button>
+                    <button onclick="addEmoji()">Add Emoji</button>
+                    <button onclick="increaseSize()">+</button>
+                    <button onclick="decreaseSize()">-</button>
+                    <input type="text" id="textInput" placeholder="Enter text">
+                    <button onclick="addSpeechBubble()">Add Speech Bubble</button>
+                    <input type="color" id="bgColor" onchange="updateBackground()">
+                    <label for="bgColor">Background Color</label>
+                    <button onclick="openGradientPicker()">Set Gradient Background</button>
+                    <button onclick="shareScene()">Share Scene</button>
+                    <button onclick="exportToPNG()">Export to PNG</button>
+                </div>
+                <div class="controls">
+                    <button onclick="saveScene()">Save Scene</button>
+                    <button onclick="openLoadDialog()">Load Scene</button>
+                </div>
+            </div>
+            <div class="card-back">
+                <h2>Credits</h2>
+                <p>Created by: Andrew Wooldridge (triptych@gmail.com)</p>
+                <p>Libraries used:</p>
+                <ul>
+                    <li>Emoji Button by Joe Attardi</li>
+                    <li>html2canvas by Niklas von Hertzen</li>
+                </ul>
+                <button onclick="toggleCredits()">Back to App</button>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="gradientDialog">
+        <h2>Set Gradient Background</h2>
+        <input type="color" id="gradientColor1">
+        <input type="color" id="gradientColor2">
+        <select id="gradientDirection">
+            <option value="to right">Horizontal</option>
+            <option value="to bottom">Vertical</option>
+            <option value="to bottom right">Diagonal</option>
+        </select>
+        <div id="gradientPreview"></div>
+        <button onclick="applyGradient()">Apply Gradient</button>
+        <button onclick="document.getElementById('gradientDialog').close()">Cancel</button>
+    </dialog>
+
+    <dialog id="shareDialog">
+        <h2>Share Your Scene</h2>
+        <p>Copy the URL below to share your scene:</p>
+        <input type="text" id="shareUrl" readonly>
+        <button onclick="copyShareUrl()">Copy URL</button>
+        <button onclick="document.getElementById('shareDialog').close()">Close</button>
+    </dialog>
+
+    <dialog id="loadDialog">
+        <h2>Load Saved Scene</h2>
+        <select id="savedScenes"></select>
+        <button onclick="loadSelectedScene()">Load</button>
+        <button onclick="document.getElementById('loadDialog').close()">Cancel</button>
+    </dialog>
+
+    <script src="script.js"></script>
+</body>
+</html>
